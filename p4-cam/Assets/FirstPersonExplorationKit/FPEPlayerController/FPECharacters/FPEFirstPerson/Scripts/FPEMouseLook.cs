@@ -55,7 +55,7 @@ namespace Whilefun.FPEKit {
 
                 lastRotationChanges.x = inputManager.GetAxis(FPEInputManager.eFPEInput.FPE_INPUT_MOUSELOOKY);
                 lastRotationChanges.y = inputManager.GetAxis(FPEInputManager.eFPEInput.FPE_INPUT_MOUSELOOKX);
-
+        
                 // If there was no mouse input use gamepad instead
                 if (lastRotationChanges.x == 0 & lastRotationChanges.y == 0)
                 {
