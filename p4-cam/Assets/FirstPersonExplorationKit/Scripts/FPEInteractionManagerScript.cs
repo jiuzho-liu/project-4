@@ -221,7 +221,7 @@ namespace Whilefun.FPEKit
                 // closeMenu() functions to suit your needs, or make them blank functions, remove them, etc. as required.
                 if (FPEMenu.Instance == null)
                 {
-                    Debug.LogError("FPEInteractionManagerScript:: There is no FPEMenu present in your scene. This will mean openMenu() and closeMenu() won't function as expected but the game will still run.");
+                
                 }
 
                 rememberStartingMouseSensitivity();

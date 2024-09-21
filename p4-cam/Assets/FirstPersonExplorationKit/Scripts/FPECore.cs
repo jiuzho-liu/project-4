@@ -94,7 +94,7 @@ namespace Whilefun.FPEKit
 
             if (!HUDPrefab || !eventSystemPrefab || !interactionManagerPrefab || !playerPrefab || !inputManagerPrefab || !saveLoadManagerPrefab || !menuPrefab)
             {
-                Debug.LogError("FPECore:: Missing prefab for core component. Game will not function correctly. See Inspector for object '" + gameObject.name + "' to ensure all fields are populated correctly.");
+                
             }
 
             Instantiate(eventSystemPrefab, null);

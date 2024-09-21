@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 
 // Screen Recorder will save individual images of active scene in any resolution and of a specific image format
@@ -23,6 +24,7 @@ public class ScreenRecorder : MonoBehaviour
 
     // optimize for many screenshots will not destroy any objects so future screenshots will be fast
     public bool optimizeForManyScreenshots = true;
+    public Text full ;
 
     // configure with raw, jpg, png, or ppm (simple raw format)
     public enum Format { RAW, JPG, PNG, PPM };
@@ -41,6 +43,7 @@ public class ScreenRecorder : MonoBehaviour
     private bool captureScreenshot = false;
     private bool captureVideo = false;
 
+
     [Header("摄影机表现部分")]
     public bool isUsingCamera = true;
 
@@ -50,8 +53,12 @@ public class ScreenRecorder : MonoBehaviour
     Image photoPreview;
 
 
+    public event Action<string> OnScreenshotLimitReached;
+
+
     private void Start()
     {
+        full.text = "";
     }
 
     // create a unique filename using a one-up variable
@@ -76,13 +83,20 @@ public class ScreenRecorder : MonoBehaviour
             string mask = string.Format("screen_{0}x{1}*.{2}", width, height, format.ToString().ToLower());
             counter = Directory.GetFiles(folder, mask, SearchOption.TopDirectoryOnly).Length;
         }
-
+        
+        if (counter >=9)
+        {
+            full.text = "full";
+            OnScreenshotLimitReached?.Invoke("");
+            // 或者返回一个表示错误的文件名  
+            return null;
+        }
         // use width, height, and counter for unique file name
         var filename = string.Format("{0}/screen_{1}x{2}_{3}.{4}", folder, width, height, counter, format.ToString().ToLower());
 
         // up counter for next call
-        ++counter;
 
+        ++counter;
         // return unique filename
         return filename;
     }
@@ -217,4 +231,6 @@ public class ScreenRecorder : MonoBehaviour
         tex.Apply();
         return tex;
     }
+   
+
 }
