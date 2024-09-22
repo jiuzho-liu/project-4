@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+using System;
 public class PhotoSystem : MonoBehaviour
 {
 
@@ -11,10 +12,14 @@ public class PhotoSystem : MonoBehaviour
     public GameObject panel;
 
     bool isLastFile = false;
+    ScreenRecorder screenRecorder;
+
+
+    public PhotoObj currentSeletedPhoto;   
     // Start is called before the first frame update
     void Start()
     {
-
+        screenRecorder = GetComponent<ScreenRecorder>();
     }
 
     // Update is called once per frame
@@ -29,25 +34,51 @@ public class PhotoSystem : MonoBehaviour
 
     public void ShowPhotoUI()
     {
-
         Debug.Log("ShowPhotoUI");
-        
-        int index = 0;
-        while (!isLastFile)
-        {
-            Texture2D tex2D;
-            if (LoadPNG(@"photos\screen_1920x1080_" + index.ToString() + ".png", out tex2D))
-            {
-                Image img = Instantiate(photoPrefab, panel.transform).GetComponent<Image>();
-                img.sprite = Sprite.Create(tex2D, new Rect(0.0f, 0.0f, tex2D.width, tex2D.height), new Vector2(0.5f, 0.5f), 100.0f);
-            }else
-            {
-                Debug.Log("结束读取，共有" + index + "个文件");
 
-                isLastFile = true; }
-            index++;
+        string mask = string.Format("screen_{0}x{1}*.{2}", screenRecorder.captureWidth, screenRecorder.captureHeight, screenRecorder.format.ToString().ToLower());
+        int counter = Directory.GetFiles(screenRecorder.folder, mask, SearchOption.TopDirectoryOnly).Length;
+
+        for (int i = 0; i < counter; i++)
+        {
+
+            Texture2D tex2D;
+            if (LoadPNG(@"photos\screen_1920x1080_" + i.ToString() + ".png", out tex2D))
+            {
+                PhotoObj photoObj = Instantiate(photoPrefab, panel.transform).GetComponent<PhotoObj>();
+                photoObj.img.sprite = Sprite.Create(tex2D, new Rect(0.0f, 0.0f, tex2D.width, tex2D.height), new Vector2(0.5f, 0.5f), 100.0f);
+                photoObj.path = @"photos\screen_1920x1080_" + i.ToString() + ".png";
+                photoObj.index = i;
+                photoObj.photoSystem = this;
+            }
         }
+
+        //停掉FPS控制器
+
+
+        Invoke("StopGrid", 0.1f);
     }
+
+    void StopGrid()
+    {
+        panel.GetComponent<GridLayoutGroup>().enabled = false;
+    }
+
+    public void DeletPhoto(PhotoObj obj)
+    {
+        File.Delete(obj.path);
+        Destroy(obj.gameObject);
+    }
+
+
+    public void DeletPhoto()
+    {
+        File.Delete(currentSeletedPhoto.path);
+        Destroy(currentSeletedPhoto.gameObject);
+    }
+
+
+
     public static bool LoadPNG(string filePath, out Texture2D tex)
     {
 

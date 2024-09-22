@@ -58,7 +58,6 @@ public class ScreenRecorder : MonoBehaviour
 
     private void Start()
     {
-        full.text = "";
     }
 
     // create a unique filename using a one-up variable
@@ -83,14 +82,11 @@ public class ScreenRecorder : MonoBehaviour
             string mask = string.Format("screen_{0}x{1}*.{2}", width, height, format.ToString().ToLower());
             counter = Directory.GetFiles(folder, mask, SearchOption.TopDirectoryOnly).Length;
         }
-        
-        if (counter >=9)
-        {
-            full.text = "full";
-            OnScreenshotLimitReached?.Invoke("");
-            // 或者返回一个表示错误的文件名  
-            return null;
-        }
+        //if (counter >=9)
+        //{
+        //    // 或者返回一个表示错误的文件名  
+        //    return null;
+        //}
         // use width, height, and counter for unique file name
         var filename = string.Format("{0}/screen_{1}x{2}_{3}.{4}", folder, width, height, counter, format.ToString().ToLower());
 
@@ -118,6 +114,23 @@ public class ScreenRecorder : MonoBehaviour
         if (captureScreenshot || captureVideo)
         {
             captureScreenshot = false;
+
+            string mask = string.Format("screen_{0}x{1}*.{2}", (int)rect.width, (int)rect.height, format.ToString().ToLower());
+             
+            if (Directory.GetFiles(folder, mask, SearchOption.TopDirectoryOnly).Length >= 9)
+            {
+                //提示存储不足Ui
+                full.gameObject.SetActive(true);
+                full.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 200f);
+                full.GetComponent<CanvasGroup>().alpha = 0f;
+
+                full.GetComponent<RectTransform>().DOAnchorPosY(300f, 1.5f);
+                full.GetComponent<CanvasGroup>().DOFade(1f, 1.5f).OnComplete(() =>
+                full.GetComponent<CanvasGroup>().DOFade(0f, 1.5f).OnComplete(() =>
+                full.gameObject.SetActive(false)
+                ));
+                return;
+            }
 
             // hide optional game object if set
             if (hideGameObject != null) hideGameObject.SetActive(false);
@@ -148,6 +161,8 @@ public class ScreenRecorder : MonoBehaviour
 
             // get our unique filename
             string filename = uniqueFilename((int)rect.width, (int)rect.height);
+
+         
 
             // pull in our file header/data bytes for the specified image format (has to be done from main thread)
             byte[] fileHeader = null;
