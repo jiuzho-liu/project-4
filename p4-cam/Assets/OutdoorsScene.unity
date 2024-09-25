@@ -12545,6 +12545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe284abf7a397b41800df7aa4e8b733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  photoUI: {fileID: 1080473089}
   photoPrefab: {fileID: 5893253337354990906, guid: 566b2acb83d0b754bbb12dcc2b982943,
     type: 3}
   panel: {fileID: 1080473089}

@@ -7,13 +7,13 @@ using System;
 public class PhotoSystem : MonoBehaviour
 {
 
-
+    public GameObject photoUI;
     public GameObject photoPrefab;
     public GameObject panel;
 
     bool isLastFile = false;
     ScreenRecorder screenRecorder;
-
+    private bool isPhotoUIShown = false;
 
     public PhotoObj currentSeletedPhoto;   
     // Start is called before the first frame update
@@ -25,9 +25,19 @@ public class PhotoSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            ShowPhotoUI();
+            if (isPhotoUIShown)
+            {
+                photoUI.SetActive(false);
+                isPhotoUIShown = false;
+            }
+            else
+            {
+                ShowPhotoUI();
+                photoUI.SetActive(true);
+                isPhotoUIShown = true;
+            }
         }
     }
 
