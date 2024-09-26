@@ -4,13 +4,15 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
 using System;
+using Whilefun.FPEKit;
 public class PhotoSystem : MonoBehaviour
 {
 
     public GameObject photoUI;
     public GameObject photoPrefab;
     public GameObject panel;
-
+    private GameObject thePlayer = null;
+   
     bool isLastFile = false;
     ScreenRecorder screenRecorder;
     private bool isPhotoUIShown = false;
@@ -25,8 +27,10 @@ public class PhotoSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+           
             if (isPhotoUIShown)
             {
                 photoUI.SetActive(false);
@@ -38,6 +42,8 @@ public class PhotoSystem : MonoBehaviour
                 photoUI.SetActive(true);
                 isPhotoUIShown = true;
             }
+            disableMouseLook();
+            enableMouseLook();
         }
     }
 
@@ -107,5 +113,20 @@ public class PhotoSystem : MonoBehaviour
             return false;
         }
 
+    }
+
+    private void disableMouseLook()
+    {
+        thePlayer = FPEPlayer.Instance.gameObject;
+        thePlayer.GetComponent<FPEMouseLook>().enableMouseLook = false;
+      
+    }
+    // Unlocks mouse look so we can move mouse to look when walking/moving normally.
+    // If using another Character Controller (UFPS, etc.) substitute mouselook enable functionality
+    private void enableMouseLook()
+    {
+        thePlayer = FPEPlayer.Instance.gameObject;
+        thePlayer.GetComponent<FPEMouseLook>().enableMouseLook = true;
+       
     }
 }

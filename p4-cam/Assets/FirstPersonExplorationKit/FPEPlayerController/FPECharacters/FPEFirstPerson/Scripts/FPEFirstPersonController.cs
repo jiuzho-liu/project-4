@@ -31,7 +31,7 @@ namespace Whilefun.FPEKit {
         private float walkStepLengthStanding = 1.0f;
         [SerializeField]
         private float runStepLengthStanding = 0.7f;
-
+        
         [Header("Jumping")]
         [SerializeField]
         private float m_JumpSpeed = 8.0f;

@@ -25,7 +25,8 @@ public class ScreenRecorder : MonoBehaviour
     // optimize for many screenshots will not destroy any objects so future screenshots will be fast
     public bool optimizeForManyScreenshots = true;
     public Text full ;
-
+    public Image cameraUI;
+    private bool isCameraUIActive = false;
     // configure with raw, jpg, png, or ppm (simple raw format)
     public enum Format { RAW, JPG, PNG, PPM };
     public Format format = Format.PPM;
@@ -45,7 +46,7 @@ public class ScreenRecorder : MonoBehaviour
 
 
     [Header("摄影机表现部分")]
-    public bool isUsingCamera = true;
+    public bool isUsingCamera = false;
 
 
     public GameObject photoPreviewPrefab;
@@ -106,11 +107,16 @@ public class ScreenRecorder : MonoBehaviour
     {
         // check keyboard 'k' for one time screenshot capture and holding down 'v' for continious screenshots
         //captureScreenshot |= Input.GetKeyDown("k");
+        if (Input.GetMouseButtonDown(1))
+        {
 
-        captureScreenshot = Input.GetMouseButton(0) && isUsingCamera;
+            isUsingCamera = true;
+            ToggleCameraUIState();
 
+        }
+            
         //captureVideo = Input.GetKey("v");
-
+        captureScreenshot = Input.GetMouseButton(0) && isUsingCamera;
         if (captureScreenshot || captureVideo)
         {
             captureScreenshot = false;
@@ -205,7 +211,15 @@ public class ScreenRecorder : MonoBehaviour
             ShowPreviewPhoto();
         }
     }
+    void ToggleCameraUIState()
+    {
+        // 如果cameraUI当前是活动的，则关闭它  
+        // 否则，如果它是非活动的，则打开它  
+        isCameraUIActive = !isCameraUIActive;
+        cameraUI.gameObject.SetActive(isCameraUIActive);
 
+        
+    }
     void ShowPreviewPhoto()
     {
         //生成
