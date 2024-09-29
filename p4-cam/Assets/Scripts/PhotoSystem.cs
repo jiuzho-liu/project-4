@@ -12,7 +12,7 @@ public class PhotoSystem : MonoBehaviour
     public GameObject photoPrefab;
     public GameObject panel;
     private GameObject thePlayer = null;
-   
+    private bool mouseLookEnabled = true;
     bool isLastFile = false;
     ScreenRecorder screenRecorder;
     private bool isPhotoUIShown = false;
@@ -35,15 +35,27 @@ public class PhotoSystem : MonoBehaviour
             {
                 photoUI.SetActive(false);
                 isPhotoUIShown = false;
+
+                FPEMenu.Instance.deactivateMenu();
+                setCursorVisibility(false);
+                enableMouseLook();
+                enableMovement();
+                Time.timeScale = 1.0f;
+
             }
             else
             {
                 ShowPhotoUI();
                 photoUI.SetActive(true);
                 isPhotoUIShown = true;
+
+                FPEMenu.Instance.activateMenu();
+                Time.timeScale = 0.0f;
+                disableMovement();
+                disableMouseLook();
+                setCursorVisibility(true);
             }
-            disableMouseLook();
-            enableMouseLook();
+          
         }
     }
 
@@ -115,18 +127,49 @@ public class PhotoSystem : MonoBehaviour
 
     }
 
+
     private void disableMouseLook()
     {
-        thePlayer = FPEPlayer.Instance.gameObject;
         thePlayer.GetComponent<FPEMouseLook>().enableMouseLook = false;
-      
+        mouseLookEnabled = false;
     }
     // Unlocks mouse look so we can move mouse to look when walking/moving normally.
     // If using another Character Controller (UFPS, etc.) substitute mouselook enable functionality
     private void enableMouseLook()
     {
-        thePlayer = FPEPlayer.Instance.gameObject;
         thePlayer.GetComponent<FPEMouseLook>().enableMouseLook = true;
-       
+        mouseLookEnabled = true;
+    }
+    // Locks movement of Character Controller. 
+    // If using another Character Controller (UFPS, etc.) substitute disable functionality
+    private void disableMovement()
+    {
+        thePlayer.GetComponent<FPEFirstPersonController>().disableMovement();
+    }
+    // Unlocks movement of Character Controller. 
+    // If using another Character Controller (UFPS, etc.) substitute enable functionality
+    private void enableMovement()
+    {
+        thePlayer.GetComponent<FPEFirstPersonController>().enableMovement();
+    }
+
+    public bool isMouseLookEnabled()
+    {
+        return mouseLookEnabled;
+    }
+    private void setCursorVisibility(bool visible)
+    {
+
+        Cursor.visible = visible;
+
+        if (visible)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
     }
 }
