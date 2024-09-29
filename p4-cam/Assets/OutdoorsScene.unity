@@ -2149,8 +2149,8 @@ RectTransform:
   - {fileID: 39761315}
   - {fileID: 1080473090}
   - {fileID: 1027466999}
-  - {fileID: 1977189911}
   - {fileID: 1821396241}
+  - {fileID: 1977189911}
   m_Father: {fileID: 8225007735670863352}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10503,6 +10503,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FPECore
       objectReference: {fileID: 0}
+    - target: {fileID: 1904818688322854, guid: 61ee32032a51f264ab192daff55116f3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4436134608711204, guid: 61ee32032a51f264ab192daff55116f3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -10892,12 +10896,12 @@ GameObject:
   - component: {fileID: 1977189913}
   - component: {fileID: 1977189912}
   m_Layer: 0
-  m_Name: Image
+  m_Name: AreaDel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1977189911
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10905,17 +10909,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977189910}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 367589980}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 825, y: -398}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -187, y: 136}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1977189912
 MonoBehaviour:
@@ -12610,6 +12614,7 @@ MonoBehaviour:
   photoPreviewPrefab: {fileID: 5893253337354990906, guid: 6516f51c0c47c9a43bb3113b843462cb,
     type: 3}
   photoPreviewPanel: {fileID: 39761314}
+  isOn: 1
 --- !u!114 &8225007735670863355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12626,6 +12631,7 @@ MonoBehaviour:
   photoPrefab: {fileID: 5893253337354990906, guid: 566b2acb83d0b754bbb12dcc2b982943,
     type: 3}
   panel: {fileID: 1080473089}
+  delArea: {fileID: 1977189910}
   currentSeletedPhoto: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

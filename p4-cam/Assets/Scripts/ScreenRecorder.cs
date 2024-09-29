@@ -103,8 +103,15 @@ public class ScreenRecorder : MonoBehaviour
         captureScreenshot = true;
     }
 
+
+
+
+    public bool isOn = true;
     void Update()
     {
+        if(!isOn) return;
+
+
         // check keyboard 'k' for one time screenshot capture and holding down 'v' for continious screenshots
         //captureScreenshot |= Input.GetKeyDown("k");
         if (Input.GetMouseButtonDown(1))

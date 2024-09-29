@@ -5,57 +5,79 @@ using System.IO;
 using UnityEngine.UI;
 using System;
 using Whilefun.FPEKit;
+
+
 public class PhotoSystem : MonoBehaviour
 {
-
+    [Header("UI")]
     public GameObject photoUI;
     public GameObject photoPrefab;
     public GameObject panel;
-    private GameObject thePlayer = null;
+    public GameObject delArea;
+
+
+
+    [Space(10f)]
+    public PhotoObj currentSeletedPhoto;
+
+
     private bool mouseLookEnabled = true;
+    private bool ShowPhoto = false;
+
     bool isLastFile = false;
     ScreenRecorder screenRecorder;
-    private bool isPhotoUIShown = false;
-
-    public PhotoObj currentSeletedPhoto;   
+    FPEMouseLook fPEMouseLook;
+    FPEFirstPersonController fPEFirstPersonController;  
     // Start is called before the first frame update
     void Start()
     {
         screenRecorder = GetComponent<ScreenRecorder>();
+        fPEMouseLook = FindAnyObjectByType<FPEMouseLook>();
+        fPEFirstPersonController = FindAnyObjectByType<FPEFirstPersonController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-           
-            if (isPhotoUIShown)
+            ShowPhoto = !ShowPhoto;
+            if (ShowPhoto)
             {
-                photoUI.SetActive(false);
-                isPhotoUIShown = false;
+                ShowPhotoUI();
+                delArea.SetActive(true);   
+                photoUI.SetActive(true);
+                //FPEMenu.Instance.activateMenu();
+                //Time.timeScale = 0.0f;
 
-                FPEMenu.Instance.deactivateMenu();
-                setCursorVisibility(false);
-                enableMouseLook();
-                enableMovement();
-                Time.timeScale = 1.0f;
+                fPEMouseLook.enableMouseLook = false;
+                fPEFirstPersonController.disableMovement();
 
+                setCursorVisibility(true);
+                screenRecorder.isOn = false;
             }
             else
             {
-                ShowPhotoUI();
-                photoUI.SetActive(true);
-                isPhotoUIShown = true;
+                photoUI.SetActive(false);
+                delArea.SetActive(false);
+                //FPEMenu.Instance.deactivateMenu();
+                setCursorVisibility(false);
 
-                FPEMenu.Instance.activateMenu();
-                Time.timeScale = 0.0f;
-                disableMovement();
-                disableMouseLook();
-                setCursorVisibility(true);
+                fPEMouseLook.enableMouseLook = true;
+                fPEFirstPersonController.enableMovement();
+
+                //Time.timeScale = 1.0f;
+
+                //Clear up
+                foreach (Transform obj in panel.transform)
+                {
+                    Destroy(obj.gameObject);
+                }
+                StartGrid();
+
+
+                screenRecorder.isOn = true;
             }
-          
         }
     }
 
@@ -63,26 +85,47 @@ public class PhotoSystem : MonoBehaviour
     public void ShowPhotoUI()
     {
         Debug.Log("ShowPhotoUI");
-
+     
         string mask = string.Format("screen_{0}x{1}*.{2}", screenRecorder.captureWidth, screenRecorder.captureHeight, screenRecorder.format.ToString().ToLower());
-        int counter = Directory.GetFiles(screenRecorder.folder, mask, SearchOption.TopDirectoryOnly).Length;
+        string[] files = Directory.GetFiles(screenRecorder.folder, mask, SearchOption.TopDirectoryOnly);
 
-        for (int i = 0; i < counter; i++)
+        int counter = files.Length; 
+        //Debug.Log("ÕÕÆ¬Êý:" + counter);
+        Debug.Log(files[files.Length-1]);
+
+
+        //for (int i = 0; i < 25; i++)
+        //{
+        //    Texture2D tex2D;
+        //    if (LoadPNG(@"photos\screen_1920x1080_" + i.ToString() + ".png", out tex2D))
+        //    {
+        //        PhotoObj photoObj = Instantiate(photoPrefab, panel.transform).GetComponent<PhotoObj>();
+        //        photoObj.img.sprite = Sprite.Create(tex2D, new Rect(0.0f, 0.0f, tex2D.width, tex2D.height), new Vector2(0.5f, 0.5f), 100.0f);
+        //        photoObj.path = @"photos\screen_1920x1080_" + i.ToString() + ".png";
+        //        photoObj.index = i;
+        //        photoObj.photoSystem = this;
+        //    }
+        //}
+        //Í£µôFPS¿ØÖÆÆ÷
+
+        Texture2D tex2D;
+        int index = 0;
+        foreach (string file in files)
         {
-
-            Texture2D tex2D;
-            if (LoadPNG(@"photos\screen_1920x1080_" + i.ToString() + ".png", out tex2D))
+        
+            if (LoadPNG(file, out tex2D))
             {
                 PhotoObj photoObj = Instantiate(photoPrefab, panel.transform).GetComponent<PhotoObj>();
                 photoObj.img.sprite = Sprite.Create(tex2D, new Rect(0.0f, 0.0f, tex2D.width, tex2D.height), new Vector2(0.5f, 0.5f), 100.0f);
-                photoObj.path = @"photos\screen_1920x1080_" + i.ToString() + ".png";
-                photoObj.index = i;
+                photoObj.path = file;
+                photoObj.index = index;
                 photoObj.photoSystem = this;
+
+                index++;
             }
+
         }
-
-        //Í£µôFPS¿ØÖÆÆ÷
-
+        
 
         Invoke("StopGrid", 0.1f);
     }
@@ -90,6 +133,11 @@ public class PhotoSystem : MonoBehaviour
     void StopGrid()
     {
         panel.GetComponent<GridLayoutGroup>().enabled = false;
+    }
+
+    void StartGrid()
+    {
+        panel.GetComponent<GridLayoutGroup>().enabled = true;
     }
 
     public void DeletPhoto(PhotoObj obj)
@@ -126,32 +174,35 @@ public class PhotoSystem : MonoBehaviour
         }
 
     }
+    
 
 
-    private void disableMouseLook()
-    {
-        thePlayer.GetComponent<FPEMouseLook>().enableMouseLook = false;
-        mouseLookEnabled = false;
-    }
-    // Unlocks mouse look so we can move mouse to look when walking/moving normally.
-    // If using another Character Controller (UFPS, etc.) substitute mouselook enable functionality
-    private void enableMouseLook()
-    {
-        thePlayer.GetComponent<FPEMouseLook>().enableMouseLook = true;
-        mouseLookEnabled = true;
-    }
-    // Locks movement of Character Controller. 
-    // If using another Character Controller (UFPS, etc.) substitute disable functionality
-    private void disableMovement()
-    {
-        thePlayer.GetComponent<FPEFirstPersonController>().disableMovement();
-    }
-    // Unlocks movement of Character Controller. 
-    // If using another Character Controller (UFPS, etc.) substitute enable functionality
-    private void enableMovement()
-    {
-        thePlayer.GetComponent<FPEFirstPersonController>().enableMovement();
-    }
+
+
+    //private void disableMouseLook()
+    //{
+    //    thePlayer.GetComponent<FPEMouseLook>().enableMouseLook = false;
+    //    mouseLookEnabled = false;
+    //}
+    //// Unlocks mouse look so we can move mouse to look when walking/moving normally.
+    //// If using another Character Controller (UFPS, etc.) substitute mouselook enable functionality
+    //private void enableMouseLook()
+    //{
+    //    thePlayer.GetComponent<FPEMouseLook>().enableMouseLook = true;
+    //    mouseLookEnabled = true;
+    //}
+    //// Locks movement of Character Controller. 
+    //// If using another Character Controller (UFPS, etc.) substitute disable functionality
+    //private void disableMovement()
+    //{
+    //    thePlayer.GetComponent<FPEFirstPersonController>().disableMovement();
+    //}
+    //// Unlocks movement of Character Controller. 
+    //// If using another Character Controller (UFPS, etc.) substitute enable functionality
+    //private void enableMovement()
+    //{
+    //    thePlayer.GetComponent<FPEFirstPersonController>().enableMovement();
+    //}
 
     public bool isMouseLookEnabled()
     {
@@ -159,7 +210,7 @@ public class PhotoSystem : MonoBehaviour
     }
     private void setCursorVisibility(bool visible)
     {
-
+        Debug.Log("setCursorVisibility:" + visible);
         Cursor.visible = visible;
 
         if (visible)

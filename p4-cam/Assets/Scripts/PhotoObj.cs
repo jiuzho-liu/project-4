@@ -21,16 +21,16 @@ public class PhotoObj : MonoBehaviour
     {
         
     }
-
-
-    private void OnMouseDrag()
+    
+    public void OnMouseDrag()
     {
         transform.position = Input.mousePosition;
     }
 
-    private void OnMouseDown()
+    public void OnMouseDown()
     {
         photoSystem.currentSeletedPhoto = this;
+        gameObject.GetComponent<RectTransform>().SetAsLastSibling();
     }
 
 }
