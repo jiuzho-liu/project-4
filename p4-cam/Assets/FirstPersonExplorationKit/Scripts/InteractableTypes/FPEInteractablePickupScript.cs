@@ -61,7 +61,7 @@ namespace Whilefun.FPEKit
         private float minImpactSoundVolume = 0.5f;
         private bool playImpactSounds = false;
         protected bool beingPutBack = false;
-        protected bool pickedUp = false;
+        public bool pickedUp = false;
 
         [Header("Pickup and Put Back events")]
         [SerializeField, Tooltip("If specified, this event will fire when the object is picked up")]

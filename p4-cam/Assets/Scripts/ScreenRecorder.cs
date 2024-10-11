@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine.UI;
 using DG.Tweening;
 using System;
+using Whilefun.FPEKit;
 
 
 // Screen Recorder will save individual images of active scene in any resolution and of a specific image format
@@ -24,7 +25,7 @@ public class ScreenRecorder : MonoBehaviour
 
     // optimize for many screenshots will not destroy any objects so future screenshots will be fast
     public bool optimizeForManyScreenshots = true;
-    public Text full ;
+    public Text full;
     public Image cameraUI;
     private bool isCameraUIActive = false;
     // configure with raw, jpg, png, or ppm (simple raw format)
@@ -44,14 +45,19 @@ public class ScreenRecorder : MonoBehaviour
     private bool captureScreenshot = false;
     private bool captureVideo = false;
 
+    public GameObject GetCamera;
+
+
+
 
     [Header("摄影机表现部分")]
     public bool isUsingCamera = false;
 
 
     public GameObject photoPreviewPrefab;
-    public GameObject photoPreviewPanel;  
+    public GameObject photoPreviewPanel;
     Image photoPreview;
+
 
 
     public event Action<string> OnScreenshotLimitReached;
@@ -59,6 +65,7 @@ public class ScreenRecorder : MonoBehaviour
 
     private void Start()
     {
+        isUsingCamera = false;
     }
 
     // create a unique filename using a one-up variable
@@ -109,19 +116,29 @@ public class ScreenRecorder : MonoBehaviour
     public bool isOn = true;
     void Update()
     {
-        if(!isOn) return;
 
 
-        // check keyboard 'k' for one time screenshot capture and holding down 'v' for continious screenshots
-        //captureScreenshot |= Input.GetKeyDown("k");
-        if (Input.GetMouseButtonDown(1))
+        if (!isOn) return;
+
+        FPEInteractablePickupScript pickupScript = GetCamera.GetComponent<FPEInteractablePickupScript>();
+        if (pickupScript != null && pickupScript.pickedUp)
         {
 
-            isUsingCamera = true;
-            ToggleCameraUIState();
+            //Debug.Log("picked");
+            if (Input.GetMouseButtonDown(1))
+            {
+
+                isUsingCamera = !isUsingCamera;
+                ToggleCameraUIState();
+
+            }
+
 
         }
-            
+        // check keyboard 'k' for one time screenshot capture and holding down 'v' for continious screenshots
+        //captureScreenshot |= Input.GetKeyDown("k");
+
+
         //captureVideo = Input.GetKey("v");
         captureScreenshot = Input.GetMouseButton(0) && isUsingCamera;
         if (captureScreenshot || captureVideo)
@@ -129,7 +146,7 @@ public class ScreenRecorder : MonoBehaviour
             captureScreenshot = false;
 
             string mask = string.Format("screen_{0}x{1}*.{2}", (int)rect.width, (int)rect.height, format.ToString().ToLower());
-             
+
             if (Directory.GetFiles(folder, mask, SearchOption.TopDirectoryOnly).Length >= 9)
             {
                 //提示存储不足Ui
@@ -175,7 +192,7 @@ public class ScreenRecorder : MonoBehaviour
             // get our unique filename
             string filename = uniqueFilename((int)rect.width, (int)rect.height);
 
-         
+
 
             // pull in our file header/data bytes for the specified image format (has to be done from main thread)
             byte[] fileHeader = null;
@@ -220,12 +237,11 @@ public class ScreenRecorder : MonoBehaviour
     }
     void ToggleCameraUIState()
     {
-        // 如果cameraUI当前是活动的，则关闭它  
-        // 否则，如果它是非活动的，则打开它  
+
         isCameraUIActive = !isCameraUIActive;
         cameraUI.gameObject.SetActive(isCameraUIActive);
 
-        
+
     }
     void ShowPreviewPhoto()
     {
@@ -267,6 +283,6 @@ public class ScreenRecorder : MonoBehaviour
         tex.Apply();
         return tex;
     }
-   
+
 
 }
