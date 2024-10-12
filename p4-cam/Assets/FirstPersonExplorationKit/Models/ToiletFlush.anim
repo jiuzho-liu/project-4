@@ -2370,7 +2370,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Color.a
+    attribute: material._BaseColor.a
     path: ToiletWaterSwirl
     classID: 23
     script: {fileID: 0}
@@ -2400,7 +2400,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Color.r
+    attribute: material._BaseColor.r
     path: ToiletWaterSwirl
     classID: 23
     script: {fileID: 0}
@@ -2430,7 +2430,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Color.g
+    attribute: material._BaseColor.g
     path: ToiletWaterSwirl
     classID: 23
     script: {fileID: 0}
@@ -2460,7 +2460,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Color.b
+    attribute: material._BaseColor.b
     path: ToiletWaterSwirl
     classID: 23
     script: {fileID: 0}
@@ -2529,7 +2529,7 @@ AnimationClip:
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 2656293839
-      attribute: 2108656497
+      attribute: 1941764792
       script: {fileID: 0}
       typeID: 23
       customType: 22
@@ -2538,7 +2538,7 @@ AnimationClip:
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 2656293839
-      attribute: 1303350129
+      attribute: 1136458424
       script: {fileID: 0}
       typeID: 23
       customType: 22
@@ -2547,7 +2547,7 @@ AnimationClip:
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 2656293839
-      attribute: 1571785585
+      attribute: 1404893880
       script: {fileID: 0}
       typeID: 23
       customType: 22
@@ -2556,7 +2556,7 @@ AnimationClip:
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 2656293839
-      attribute: 1840221041
+      attribute: 1673329336
       script: {fileID: 0}
       typeID: 23
       customType: 22
@@ -11724,7 +11724,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Color.a
+    attribute: material._BaseColor.a
     path: ToiletWaterSwirl
     classID: 23
     script: {fileID: 0}
@@ -11754,7 +11754,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Color.r
+    attribute: material._BaseColor.r
     path: ToiletWaterSwirl
     classID: 23
     script: {fileID: 0}
@@ -11784,7 +11784,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Color.g
+    attribute: material._BaseColor.g
     path: ToiletWaterSwirl
     classID: 23
     script: {fileID: 0}
@@ -11814,7 +11814,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: material._Color.b
+    attribute: material._BaseColor.b
     path: ToiletWaterSwirl
     classID: 23
     script: {fileID: 0}
