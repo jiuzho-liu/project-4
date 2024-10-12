@@ -389,7 +389,7 @@ namespace Whilefun.FPEKit
             if (controlHintUIEnabled)
             {
 
-                zoomExamineHint.setHint(zoomExamineHintText);
+                //zoomExamineHint.setHint(zoomExamineHintText);
                 interactHint.setHint(interactHintText);
                 inventoryHint.setHint(inventoryHintText);
 
@@ -397,7 +397,7 @@ namespace Whilefun.FPEKit
             else
             {
 
-                zoomExamineHint.setHint("");
+                //zoomExamineHint.setHint("");
                 interactHint.setHint("");
                 inventoryHint.setHint("");
 
@@ -754,7 +754,7 @@ namespace Whilefun.FPEKit
         private void unhideAllUI()
         {
 
-            zoomExamineHint.setHintVisibility(true);
+            //zoomExamineHint.setHintVisibility(true);
             interactHint.setHintVisibility(true);
             inventoryHint.setHintVisibility(true);
             unDockHint.setHintVisibility(true);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -14,12 +15,14 @@ public struct Lens
     public Volume volume;
     public bool isLocked;
     public Image image;
+    public TMP_Text LensName;
     public GameObject[] associatedObjects;
 }
 
 public class LensManager : MonoBehaviour
 {
-    
+    public bool GetLens=true;
+    public GameObject Lens1;
     public enum LensType
     {
         None,
@@ -40,6 +43,20 @@ public class LensManager : MonoBehaviour
     {
         foreach (Lens len in lens)
         {
+           
+            if (len.image != null)
+            {
+                len.image.enabled = false; 
+            }
+
+            if (len.LensName != null) { 
+            
+            len.LensName.enabled = false;
+            
+            
+            
+            }
+
             len.image.color = Color.gray;
             foreach (GameObject obj in len.associatedObjects)
             {
@@ -54,8 +71,12 @@ public class LensManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        LensKeyCheckSwitch();
+    {   if (GetLens)
+        {
+
+            LensKeyCheckSwitch();
+        }
+       
     }
 
 
