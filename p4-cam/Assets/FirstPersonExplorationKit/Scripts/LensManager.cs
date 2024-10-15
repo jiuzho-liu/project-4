@@ -21,7 +21,14 @@ public struct Lens
 
 public class LensManager : MonoBehaviour
 {
-    public bool GetLens=true;
+    private int index = -1;
+    //public bool GetLens=false;
+    public bool GetLens = false;
+    //public bool GetLens2 = false;
+    //public bool GetLens3 = false;
+
+
+
     public GameObject Lens1;
     public enum LensType
     {
@@ -73,7 +80,7 @@ public class LensManager : MonoBehaviour
     void Update()
     {   if (GetLens)
         {
-
+            
             LensKeyCheckSwitch();
         }
        
@@ -83,10 +90,11 @@ public class LensManager : MonoBehaviour
     void LensKeyCheckSwitch()
     {
 
-        int index = -1;
-
+        //int index = -1;
+        //lens[1].isLocked = false;
         for (int i = 0; i < lens.Length; i++)
         {
+            
             if (Input.GetKeyDown(lens[i].key) && !lens[i].isLocked)
             {
                 Debug.Log("°´¼ü´¥·¢" + i);
