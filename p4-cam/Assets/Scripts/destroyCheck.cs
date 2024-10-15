@@ -8,11 +8,12 @@ public enum LensType
 {
     Lens1,
     Lens2,
-    Lens3
+    Lens3,
+    Flash
 }
 
 public class destroyCheck : MonoBehaviour
-{
+{   public ScreenRecorder screenRecorder;
     public LensManager lensManager;
     public LensType lensType; 
 
@@ -40,6 +41,12 @@ public class destroyCheck : MonoBehaviour
                     lensManager.lens[2].image.enabled = true;
                     lensManager.lens[2].LensName.enabled = true;
                     //lensManager.GetLens3 = true;
+                    break;
+                case LensType.Flash:
+                    screenRecorder.GetFlash = true;
+                    lensManager.lens[3].isLocked = false;
+                    lensManager.lens[3].image.enabled = true;
+                    lensManager.lens[3].LensName.enabled = true;
                     break;
             }
         }

@@ -26,7 +26,7 @@ public class LensManager : MonoBehaviour
     public bool GetLens = false;
     //public bool GetLens2 = false;
     //public bool GetLens3 = false;
-
+    public bool PickFlash=false;
 
 
     public GameObject Lens1;
@@ -35,7 +35,8 @@ public class LensManager : MonoBehaviour
         None,
         Infrared,
         ND,
-        ND2
+        ND2,
+        Flash
     }
 
 
@@ -100,9 +101,18 @@ public class LensManager : MonoBehaviour
                 Debug.Log("°´¼ü´¥·¢" + i);
 
                 index = i;
-
+               
                 break;
             }
+            
+        }
+        if (index == 0)
+        {
+            PickFlash = true;
+        }
+        else
+        {
+            PickFlash=false;
         }
 
         if (index < 0) return;
