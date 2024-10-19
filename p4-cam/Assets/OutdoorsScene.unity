@@ -14085,7 +14085,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.7305091, g: 0.8596112, b: 0.9056604, a: 1}
-  m_Intensity: 500
+  m_Intensity: 100
   m_Range: 18.389261
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -14144,7 +14144,7 @@ Transform:
   m_GameObject: {fileID: 1216934491}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.99983644, z: -0, w: 0.018085446}
-  m_LocalPosition: {x: 14.49, y: -0.3, z: -14.13}
+  m_LocalPosition: {x: 12.2, y: 0.54, z: -20.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14335,7 +14335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenRecorder: {fileID: 0}
   lensManager: {fileID: 1788457052}
-  lensType: 0
+  lensType: 3
 --- !u!43 &1243778375
 Mesh:
   m_ObjectHideFlags: 0
@@ -17660,6 +17660,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: demoSecuritySystem
       objectReference: {fileID: 0}
+    - target: {fileID: 1120322204183096, guid: ce5515de98640f448b398bb4ce2ffb1f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4048596458499226, guid: ce5515de98640f448b398bb4ce2ffb1f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.808601
@@ -19656,7 +19660,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenRecorder: {fileID: 8225007735670863354}
   lensManager: {fileID: 1788457052}
-  lensType: 3
+  lensType: 0
 --- !u!1 &1590549731
 GameObject:
   m_ObjectHideFlags: 0
@@ -27582,7 +27586,7 @@ PrefabInstance:
         type: 3}
       propertyPath: lens.Array.data[0].volume
       value: 
-      objectReference: {fileID: 1248088434}
+      objectReference: {fileID: 87730221}
     - target: {fileID: 5568278339833973385, guid: ed6aa8741e4df954d8260c2556288ecb,
         type: 3}
       propertyPath: lens.Array.data[1].volume
@@ -28256,8 +28260,8 @@ SceneRoots:
   - {fileID: 1831613470}
   - {fileID: 2013410475}
   - {fileID: 419779783}
-  - {fileID: 2091265931}
   - {fileID: 1481578851}
+  - {fileID: 2091265931}
   - {fileID: 1981995706}
   - {fileID: 819666930}
   - {fileID: 996444054}
