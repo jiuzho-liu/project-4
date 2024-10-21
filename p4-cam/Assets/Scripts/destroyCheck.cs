@@ -24,10 +24,10 @@ public class destroyCheck : MonoBehaviour
             switch (lensType)
             {
                 case LensType.Lens1:
-                    lensManager.lens[0].isLocked = false;
-                    lensManager.lens[0].image.enabled = true;
-                    lensManager.lens[0].LensName.enabled = true;
-                    lensManager.GetLens = true;
+                    lensManager.lens[3].isLocked = false;
+                    lensManager.lens[3].image.enabled = true;
+                    lensManager.lens[3].LensName.enabled = true;
+                   
                     //lensManager.GetLens1 = true;
                     break;
                 case LensType.Lens2:
@@ -44,9 +44,10 @@ public class destroyCheck : MonoBehaviour
                     break;
                 case LensType.Flash:
                     screenRecorder.GetFlash = true;
-                    lensManager.lens[3].isLocked = false;
-                    lensManager.lens[3].image.enabled = true;
-                    lensManager.lens[3].LensName.enabled = true;
+                    lensManager.lens[0].isLocked = false;
+                    lensManager.lens[0].image.enabled = true;
+                    lensManager.lens[0].LensName.enabled = true;
+                    lensManager.GetLens = true;
                     break;
             }
         }

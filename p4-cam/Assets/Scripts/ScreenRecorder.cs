@@ -123,9 +123,9 @@ public class ScreenRecorder : MonoBehaviour
 
         if (!isOn) return;
 
-        
+       
         PlayableDirector playableDirector = Flash.GetComponent<PlayableDirector>();
-
+       
         FPEInteractablePickupScript pickupScript = GetCamera.GetComponent<FPEInteractablePickupScript>();
         if (pickupScript != null && pickupScript.pickedUp)
         {
@@ -152,7 +152,7 @@ public class ScreenRecorder : MonoBehaviour
             if(GetFlash&&lensManager.PickFlash){
 
                 playableDirector.Play();
-                Invoke("picfile", 0.5f);
+                Invoke("picfile", 0.2f);
 
             }
             else
