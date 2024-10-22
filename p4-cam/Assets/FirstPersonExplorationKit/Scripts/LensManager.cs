@@ -16,7 +16,7 @@ public struct Lens
     public bool isLocked;
     public Image image;
     public TMP_Text LensName;
-    public GameObject[] associatedObjects;
+    public GameObject[] Code;
 }
 
 public class LensManager : MonoBehaviour
@@ -66,7 +66,7 @@ public class LensManager : MonoBehaviour
             }
 
             len.image.color = Color.gray;
-            foreach (GameObject obj in len.associatedObjects)
+            foreach (GameObject obj in len.Code)
             {
                 if (obj != null) 
                 {
@@ -127,7 +127,8 @@ public class LensManager : MonoBehaviour
             int currentIndex = (int)currentType - 1;
             lens[currentIndex].volume.gameObject.SetActive(false);
             lens[currentIndex].image.color = Color.gray;
-            foreach (GameObject obj in lens[currentIndex].associatedObjects)
+            lens[currentIndex].LensName.color=Color.gray;
+            foreach (GameObject obj in lens[currentIndex].Code)
             {
                 obj.SetActive(false);
             }
@@ -136,7 +137,8 @@ public class LensManager : MonoBehaviour
 
         lens[index].volume.gameObject.SetActive(true);
         lens[index].image.color = Color.white;
-        foreach (GameObject obj in lens[index].associatedObjects)
+        lens[index].LensName.color = Color.white;
+         foreach (GameObject obj in lens[index].Code)
         {
             obj.SetActive(true);
         }

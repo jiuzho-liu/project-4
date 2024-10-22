@@ -48,6 +48,8 @@ public class ScreenRecorder : MonoBehaviour
 
     public GameObject GetCamera;
 
+    public AudioSource shootPhoto;
+    public GameObject L1Code;
 
 
 
@@ -67,7 +69,7 @@ public class ScreenRecorder : MonoBehaviour
     private void Start()
     {
 
-
+        L1Code.SetActive(false);
         isUsingCamera = false;
     }
 
@@ -145,18 +147,19 @@ public class ScreenRecorder : MonoBehaviour
 
 
         //captureVideo = Input.GetKey("v");
-        captureScreenshot = Input.GetMouseButton(0) && isUsingCamera;
+        captureScreenshot = Input.GetMouseButtonDown(0) && isUsingCamera;
         if (captureScreenshot || captureVideo)
         {
             captureScreenshot = false;
             if(GetFlash&&lensManager.PickFlash){
-
+                L1Code.SetActive(true);
                 playableDirector.Play();
                 Invoke("picfile", 0.2f);
 
             }
             else
             {
+                shootPhoto.PlayOneShot(shootPhoto.clip);
                 string mask = string.Format("screen_{0}x{1}*.{2}", (int)rect.width, (int)rect.height, format.ToString().ToLower());
 
                 if (Directory.GetFiles(folder, mask, SearchOption.TopDirectoryOnly).Length >= 9)
@@ -388,7 +391,7 @@ public class ScreenRecorder : MonoBehaviour
 
         // unhide optional game object if set
         if (hideGameObject != null) hideGameObject.SetActive(true);
-
+        L1Code.SetActive(false);
         //show photo
         ShowPreviewPhoto();
     }
