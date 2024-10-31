@@ -7,44 +7,72 @@ public class SwitchScenes : MonoBehaviour
 {
  
   
-    public Collider triggerCollider;
+    //public Collider triggerCollider;
 
-    public GameObject destroyPlayer;
+    //public GameObject PlayerContro;
 
-    private bool isInsideTrigger = false;
+    public bool isInsideTrigger=false;
 
-    void Update()
+    //void Update()
+    //{
+
+    //    if (triggerCollider != null && triggerCollider.isTrigger)
+    //    {
+    //        if (triggerCollider.bounds.Contains(PlayerContro.transform.position))
+    //        {
+    //            if (!isInsideTrigger)
+    //            {
+    //                isInsideTrigger = true;
+    //                Debug.Log("角色进入触发器区域");
+    //            }
+
+
+    //            if (Input.GetKeyDown(KeyCode.E))
+    //            {
+    //                //if (destroyPlayer != null)
+    //                //{
+
+    //                //    Destroy(destroyPlayer);
+    //                //}
+    //                LoadNextScene();
+    //            }
+    //        }
+    //        else
+    //        {
+    //            isInsideTrigger = false;
+    //            Debug.Log("角色离开触发器区域");
+    //        }
+    //    }
+    //}
+    private void Update()
     {
-          
-        if (triggerCollider != null && triggerCollider.isTrigger)
+        if (Input.GetKeyDown(KeyCode.E)&& isInsideTrigger)
         {
-            if (triggerCollider.bounds.Contains(transform.position))
-            {
-                if (!isInsideTrigger)
-                {
-                    isInsideTrigger = true;
-                    Debug.Log("角色进入触发器区域");
-                }
 
-               
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    if (destroyPlayer != null)
-                    {
-
-                        Destroy(destroyPlayer);
-                    }
-                    LoadNextScene();
-                }
-            }
-            else
-            {
-                isInsideTrigger = false;
-                Debug.Log("角色离开触发器区域");
-            }
+            LoadNextScene();
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
 
+
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("角色进入触发器区域");
+            isInsideTrigger = true;
+        }
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("角色离开触发器区域");
+            isInsideTrigger= false;
+        }
+    }
     void LoadNextScene()
     {
       

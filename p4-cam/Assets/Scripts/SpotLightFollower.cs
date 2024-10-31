@@ -28,7 +28,7 @@ public class SpotLightFollower : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Spotlight or CameraToFollow reference is missing!");
+            //Debug.LogWarning("Spotlight or CameraToFollow reference is missing!");
         }
     }
 }

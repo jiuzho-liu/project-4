@@ -12,8 +12,10 @@ public class FindLens : MonoBehaviour
 
     private void Start()
     {
-
-        lensImage.gameObject.SetActive(false);
+        if (lensImage != null)
+        {
+            lensImage.gameObject.SetActive(false);
+        }
 
     }
     void Update()
