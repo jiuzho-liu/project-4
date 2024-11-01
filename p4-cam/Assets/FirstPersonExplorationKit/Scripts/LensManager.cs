@@ -29,7 +29,7 @@ public class LensManager : MonoBehaviour
     public bool PickFlash=false;
 
 
-    public GameObject Lens1;
+    //public GameObject Lens1;
     public enum LensType
     {
         None,
@@ -46,7 +46,7 @@ public class LensManager : MonoBehaviour
     public Lens[] lens;
 
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         foreach (Lens len in lens)
@@ -70,14 +70,14 @@ public class LensManager : MonoBehaviour
             {
                 if (obj != null) 
                 {
-                    obj.SetActive(false); // “˛≤ÿ”Œœ∑∂‘œÛ  
+                    obj.SetActive(false);  
                 }
             }
         }
 
     }
 
-    // Update is called once per frame
+   
     void Update()
     {   if (GetLens)
         {

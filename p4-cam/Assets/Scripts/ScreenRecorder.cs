@@ -152,7 +152,7 @@ public class ScreenRecorder : MonoBehaviour
         {
             captureScreenshot = false;
             if(GetFlash&&lensManager.PickFlash){
-                L1Code.SetActive(true);
+                
                 playableDirector.Play();
                 Invoke("picfile", 0.2f);
 
@@ -306,6 +306,7 @@ public class ScreenRecorder : MonoBehaviour
     void picfile()
     {
         CancelInvoke("picfile");
+        L1Code.SetActive(true);
         string mask = string.Format("screen_{0}x{1}*.{2}", (int)rect.width, (int)rect.height, format.ToString().ToLower());
 
         if (Directory.GetFiles(folder, mask, SearchOption.TopDirectoryOnly).Length >= 9)
