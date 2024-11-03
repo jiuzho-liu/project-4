@@ -321,6 +321,7 @@ public class ScreenRecorder : MonoBehaviour
             full.GetComponent<CanvasGroup>().DOFade(0f, 1.5f).OnComplete(() =>
             full.gameObject.SetActive(false)
             ));
+            L1Code.SetActive(false);
             return;
         }
 

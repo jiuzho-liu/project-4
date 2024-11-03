@@ -4,8 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - DestroyOnClick
   - Flash
+  - DestroyOnClick1
+  - DestroyOnClick2
+  - DestroyOnClick3
   layers:
   - Default
   - TransparentFX

@@ -90,7 +90,7 @@ public class LensManager : MonoBehaviour
 
     void LensKeyCheckSwitch()
     {
-
+       
         //int index = -1;
         //lens[1].isLocked = false;
         for (int i = 0; i < lens.Length; i++)
@@ -128,6 +128,7 @@ public class LensManager : MonoBehaviour
             lens[currentIndex].volume.gameObject.SetActive(false);
             lens[currentIndex].image.color = Color.gray;
             lens[currentIndex].LensName.color=Color.gray;
+           
             foreach (GameObject obj in lens[currentIndex].Code)
             {
                 obj.SetActive(false);

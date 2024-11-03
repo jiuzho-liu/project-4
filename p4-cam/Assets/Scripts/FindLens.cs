@@ -4,54 +4,95 @@ using UnityEngine;
 using UnityEngine.UI;
 public class FindLens : MonoBehaviour
 {
-    public string objectToDestroyTag = "DestroyOnClick";
-    public Image lensImage;
-    public float fadeDuration = 3f;
+  
+    public Image FlashImage;
+    public Image InfraredImage;
+    public Image UV;
+//public Image FlashImage;
+    public float fadeDuration = 5f;
 
 
+    public Dictionary<string, Image> tagToImageMapping = new Dictionary<string, Image>();
+ 
 
     private void Start()
     {
-        if (lensImage != null)
-        {
-            lensImage.gameObject.SetActive(false);
-        }
+        // 初始化标签到图片的映射  
+        // 假设你有三个物体标签："LensFlash", "LensInfrared", "LensUV"  
+        // 并且你已经在Unity编辑器中拖拽了对应的Image组件到这些字段上  
+        tagToImageMapping.Add("DestroyOnClick1", FlashImage);
+        tagToImageMapping.Add("DestroyOnClick2", InfraredImage);
+        tagToImageMapping.Add("DestroyOnClick3", UV);
 
+        // 初始化所有图片为不可见  
+        foreach (var image in tagToImageMapping.Values)
+        {
+            if (image != null)
+            {
+                image.gameObject.SetActive(false);
+                // 设置图片初始颜色为完全透明（可选，取决于你的需求）  
+                // image.color = new Color(image.color.r, image.color.g, image.color.b, 0f);  
+            }
+        }
     }
+
     void Update()
     {
-
+        // 检查鼠标左键是否被按下  
         if (Input.GetMouseButtonDown(0))
         {
-
+            // 获取鼠标在屏幕上的位置并转换为射线  
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-
+            // 发射射线并检查是否击中物体  
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.CompareTag(objectToDestroyTag))
+                // 获取被击中物体的标签  
+                string hitTag = hit.collider.tag;
+
+                // 检查标签是否在映射中  
+                if (tagToImageMapping.ContainsKey(hitTag))
                 {
-                    lensImage.gameObject.SetActive(true);
+                    // 获取对应的图片并设置为可见  
+                    Image imageToShow = tagToImageMapping[hitTag];
+                    if (imageToShow != null)
+                    {
+                        imageToShow.gameObject.SetActive(true);
+                        // 开始淡出协程（如果需要的话）  
+                        StartCoroutine(FadeOutImage(imageToShow, fadeDuration));
+                    }
+
+                    // 摧毁被击中的物体  
                     Destroy(hit.collider.gameObject);
-                    Debug.Log("Destroyed: " + hit.collider.gameObject.name);
-                    StartCoroutine(FadeOutImage(lensImage, fadeDuration));
+                    Debug.Log("Destroyed object with tag: " + hitTag);
                 }
             }
         }
     }
-    private System.Collections.IEnumerator FadeOutImage(Image image, float duration)
-    {
-        float elapsed = 0f;
-        Color color = image.color;
 
+    // 淡出图片的协程  
+    private IEnumerator FadeOutImage(Image image, float duration)
+    {
+        // 保存图片的初始颜色  
+        Color initialColor = image.color;
+        // 设置图片初始为不透明（如果之前设置为透明的话）  
+        image.color = new Color(initialColor.r, initialColor.g, initialColor.b, 1f);
+
+        float elapsed = 0f;
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            color.a = Mathf.Lerp(1f, 0f, elapsed / duration);  
-            image.color = color;
+            // 根据时间插值计算透明度  
+            float alpha = Mathf.Lerp(1f, 0f, elapsed / duration);
+            // 设置图片颜色，只改变透明度  
+            image.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
 
-            yield return null; 
+            yield return null; // 等待下一帧  
         }
+
+        // 淡出后隐藏图片（可选，取决于你的需求）  
+        // image.gameObject.SetActive(false);  
+        // 如果你不想隐藏图片，可以在需要的时候再次显示它  
     }
 }
