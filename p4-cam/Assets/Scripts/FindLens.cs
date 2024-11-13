@@ -17,9 +17,7 @@ public class FindLens : MonoBehaviour
 
     private void Start()
     {
-        // 初始化标签到图片的映射  
-        // 假设你有三个物体标签："LensFlash", "LensInfrared", "LensUV"  
-        // 并且你已经在Unity编辑器中拖拽了对应的Image组件到这些字段上  
+        
         tagToImageMapping.Add("DestroyOnClick1", FlashImage);
         tagToImageMapping.Add("DestroyOnClick2", InfraredImage);
         tagToImageMapping.Add("DestroyOnClick3", UV);
@@ -30,25 +28,24 @@ public class FindLens : MonoBehaviour
             if (image != null)
             {
                 image.gameObject.SetActive(false);
-                // 设置图片初始颜色为完全透明（可选，取决于你的需求）  
-                // image.color = new Color(image.color.r, image.color.g, image.color.b, 0f);  
+                
             }
         }
     }
 
     void Update()
     {
-        // 检查鼠标左键是否被按下  
+
         if (Input.GetMouseButtonDown(0))
         {
-            // 获取鼠标在屏幕上的位置并转换为射线  
+           
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            // 发射射线并检查是否击中物体  
+          
             if (Physics.Raycast(ray, out hit))
             {
-                // 获取被击中物体的标签  
+               
                 string hitTag = hit.collider.tag;
 
                 // 检查标签是否在映射中  

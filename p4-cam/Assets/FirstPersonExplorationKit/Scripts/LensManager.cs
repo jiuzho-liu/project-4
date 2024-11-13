@@ -27,8 +27,8 @@ public class LensManager : MonoBehaviour
     //public bool GetLens2 = false;
     //public bool GetLens3 = false;
     public bool PickFlash=false;
-
-
+    public GameObject myBag;
+    public bool isOpen = true;
     //public GameObject Lens1;
     public enum LensType
     {
@@ -84,7 +84,12 @@ public class LensManager : MonoBehaviour
             
             LensKeyCheckSwitch();
         }
-       
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            isOpen = !isOpen;
+            myBag.SetActive(isOpen);
+        }
+
     }
 
 
@@ -146,4 +151,6 @@ public class LensManager : MonoBehaviour
 
         currentType = (LensType)index + 1;
     }
+   
+
 }

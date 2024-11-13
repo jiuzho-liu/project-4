@@ -6,20 +6,23 @@ public class ItemOnWorld : MonoBehaviour
 {
     public Item thisItem;
     public Inventory playerInventory;
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("drug " );
             AddNewItem();
             Destroy(gameObject);
         }
     }
+
+
     public void AddNewItem()
     {
-        //判断是否在列表中，在 先加1
+        
         if (!playerInventory.itemList.Contains(thisItem))
         {
-            // playerInventory.itemList.Add(thisItem);
+            
             for (int i = 0; i < playerInventory.itemList.Count; i++)
             {
                 if (playerInventory.itemList[i] == null)
