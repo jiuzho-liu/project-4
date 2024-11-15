@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class Slot : MonoBehaviour
 {
-    public int slotID; //ø’∏ÒID=ŒÔÃÂID
+    public int slotID; 
     public Item slotItem;
     public Image slotImage;
     public TMP_Text slotNum;
