@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine.UI;
 using System;
 using Whilefun.FPEKit;
+using Unity.VisualScripting.Antlr3.Runtime;
 
 
 public class PhotoSystem : MonoBehaviour
@@ -23,7 +24,8 @@ public class PhotoSystem : MonoBehaviour
 
     private bool mouseLookEnabled = true;
     private bool ShowPhoto = false;
-
+    public GameObject myBag;
+    public bool isOpen = true;
     bool isLastFile = false;
     ScreenRecorder screenRecorder;
     FPEMouseLook fPEMouseLook;
@@ -39,6 +41,33 @@ public class PhotoSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+           
+            isOpen = !isOpen;
+
+            
+            if (isOpen)
+            {
+                
+                myBag.SetActive(true);
+                fPEMouseLook.enableMouseLook = false;
+                fPEFirstPersonController.disableMovement();
+
+                setCursorVisibility(true);
+
+            }
+            else
+            {
+               
+                myBag.SetActive(false);
+                setCursorVisibility(false);
+
+                fPEMouseLook.enableMouseLook = true;
+                fPEFirstPersonController.enableMovement();
+
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             ShowPhoto = !ShowPhoto;

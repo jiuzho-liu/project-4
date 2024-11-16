@@ -10,6 +10,7 @@ TagManager:
   - DestroyOnClick3
   - DestroyOnClick
   - DestroyOnClick4
+  - DestroyOnClick5
   layers:
   - Default
   - TransparentFX

@@ -1,20 +1,23 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+
 public class Slot : MonoBehaviour
 {
-    public int slotID; 
+    public int slotID;//空格ID 等于 物品ID
     public Item slotItem;
     public Image slotImage;
-    public TMP_Text slotNum;
+    public Text slotNum;
     public string slotInfo;
+
     public GameObject itemInSlot;
+
     public void ItemOnClicked()
     {
-        InventoryManger.UpdateItemInformation(slotInfo);
+        InventoryManager.UpdateItemInfo(slotInfo);
     }
+
     public void SetupSlot(Item item)
     {
         if (item == null)
@@ -22,11 +25,10 @@ public class Slot : MonoBehaviour
             itemInSlot.SetActive(false);
             return;
         }
-        else
-        {
-            slotImage.sprite = item.itemImage;
-            slotNum.text = item.itemHeld.ToString();
-            slotInfo = item.itemInfo;
-        }
+
+        slotImage.sprite = item.itemImage;
+        slotNum.text = item.itemHeld.ToString();
+        slotInfo = item.itemInfo;
+
     }
 }
