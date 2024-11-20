@@ -3,30 +3,33 @@ using UnityEngine.UI;
 
 public class PasswordChecker : MonoBehaviour
 {
-    public InputField passwordInput; // 引用密码输入框
-    public Button submitButton;     // 引用提交按钮
-    public string correctPassword = "yourpassword"; // 设置正确的密码
+    public InputField passwordInput;
+    public Button submitButton;
+    public Text messageText;
 
-    // Use this for initialization
+    private string correctPassword = "your_password_here"; // 将此处替换为你的密码
+
     void Start()
     {
         // 添加按钮点击事件监听器
         submitButton.onClick.AddListener(CheckPassword);
     }
 
-    // 检查输入的密码是否正确
     void CheckPassword()
     {
         string enteredPassword = passwordInput.text;
+
         if (enteredPassword == correctPassword)
         {
-            Debug.Log("Password is correct!");
-            // 在这里添加打开门的逻辑，比如显示门开的动画或触发门开的触发器
+            messageText.text = "密码正确！门已打开。";
+            // 在这里添加打开门的逻辑
         }
         else
         {
-            Debug.Log("Password is incorrect!");
-            // 在这里添加错误提示，比如显示错误消息或震动效果
+            messageText.text = "密码错误，请重试。";
         }
+
+        // 清空输入框以便下次输入
+        passwordInput.text = "";
     }
 }

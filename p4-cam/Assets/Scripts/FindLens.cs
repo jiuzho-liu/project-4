@@ -8,8 +8,10 @@ public class FindLens : MonoBehaviour
     public Image FlashImage;
     public Image InfraredImage;
     public Image UV;
-   
-//public Image FlashImage;
+    public Image Acetylene;
+    public Image LiquidChlorine;
+
+    //public Image FlashImage;
     public float fadeDuration = 5f;
 
     
@@ -22,7 +24,8 @@ public class FindLens : MonoBehaviour
         tagToImageMapping.Add("DestroyOnClick1", FlashImage);
         tagToImageMapping.Add("DestroyOnClick2", InfraredImage);
         tagToImageMapping.Add("DestroyOnClick3", UV);
-       
+        tagToImageMapping.Add("DestroyOnClick4", Acetylene);
+        tagToImageMapping.Add("DestroyOnClick5", LiquidChlorine);
         // 初始化所有图片为不可见  
         foreach (var image in tagToImageMapping.Values)
         {

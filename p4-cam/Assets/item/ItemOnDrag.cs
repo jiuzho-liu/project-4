@@ -26,27 +26,36 @@ public class ItemOnDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (eventData.pointerCurrentRaycast.gameObject.name == "Item Image")//判断下面物体名字是：Item Image 那么互换位置
-        {
-            transform.SetParent(eventData.pointerCurrentRaycast.gameObject.transform.parent.parent);
-            transform.position = eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.position;
-            //itemList的物品存储位置改变
-            var temp = myBag.itemList[currentItemID];
-            myBag.itemList[currentItemID] = myBag.itemList[eventData.pointerCurrentRaycast.gameObject.GetComponentInParent<Slot>().slotID];
-            myBag.itemList[eventData.pointerCurrentRaycast.gameObject.GetComponentInParent<Slot>().slotID] = temp;
+        if (eventData.pointerCurrentRaycast.gameObject != null)
+            if (eventData.pointerCurrentRaycast.gameObject.name == "ItemImage")
+            {
+                transform.SetParent(eventData.pointerCurrentRaycast.gameObject.transform.parent.parent);
+                transform.position = eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.position;
 
-            eventData.pointerCurrentRaycast.gameObject.transform.parent.position = originalParent.position;
-            eventData.pointerCurrentRaycast.gameObject.transform.parent.SetParent(originalParent);
-            GetComponent<CanvasGroup>().blocksRaycasts = true;//射线阻挡开启，不然无法再次选中移动的物品
+                //实际数据改变
+                var tmp = myBag.itemList[currentItemID];
+                myBag.itemList[currentItemID] = myBag.itemList[eventData.pointerCurrentRaycast.gameObject.GetComponentInParent<Slot>().slotID];
+                myBag.itemList[eventData.pointerCurrentRaycast.gameObject.GetComponentInParent<Slot>().slotID] = tmp;
+
+
+                eventData.pointerCurrentRaycast.gameObject.transform.parent.position = originalParent.position;
+                eventData.pointerCurrentRaycast.gameObject.transform.parent.SetParent(originalParent);
+                GetComponent<CanvasGroup>().blocksRaycasts = true;
+                return;
+            }
+        if (eventData.pointerCurrentRaycast.gameObject.name == "slot(Clone)")
+        {
+            transform.SetParent(eventData.pointerCurrentRaycast.gameObject.transform);
+            transform.position = eventData.pointerCurrentRaycast.gameObject.transform.position;
+            myBag.itemList[eventData.pointerCurrentRaycast.gameObject.GetComponentInParent<Slot>().slotID] = myBag.itemList[currentItemID];
+            if (eventData.pointerCurrentRaycast.gameObject.GetComponent<Slot>().slotID != currentItemID)
+                myBag.itemList[currentItemID] = null;
+            GetComponent<CanvasGroup>().blocksRaycasts = true;
             return;
         }
-        //否则直接挂在检测到到Slot下面
-        transform.SetParent(eventData.pointerCurrentRaycast.gameObject.transform);
-        transform.position = eventData.pointerCurrentRaycast.gameObject.transform.position;
-        //itemList的物品存储位置改变
-        myBag.itemList[eventData.pointerCurrentRaycast.gameObject.GetComponentInParent<Slot>().slotID] = myBag.itemList[currentItemID];
-        myBag.itemList[currentItemID] = null;
-
+        //其他任何位置都归位
+        transform.SetParent(originalParent);
+        transform.position = originalParent.position;
         GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 

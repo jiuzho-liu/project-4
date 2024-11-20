@@ -5,14 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class SwitchScenes : MonoBehaviour
 {
- 
-  
+
+    public GameObject transVolume;
+
     //public Collider triggerCollider;
 
     //public GameObject PlayerContro;
-
+   
     public bool isInsideTrigger=false;
+    private void Start()
+    {
+      
 
+    }
     //void Update()
     //{
 
@@ -48,8 +53,10 @@ public class SwitchScenes : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E)&& isInsideTrigger)
         {
+            Animator transAni = transVolume.GetComponent<Animator>();
+            transAni.Play("transLevel Animation2");
+            Invoke("LoadNextScene", 0.5f);
 
-            LoadNextScene();
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -75,7 +82,7 @@ public class SwitchScenes : MonoBehaviour
     }
     void LoadNextScene()
     {
-      
+        CancelInvoke("picfile");
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
         
         int nextIndex = currentIndex + 1;
@@ -83,11 +90,14 @@ public class SwitchScenes : MonoBehaviour
         
         if (nextIndex < SceneManager.sceneCountInBuildSettings)
         {
+            
             SceneManager.LoadScene(nextIndex);
+            
         }
         else
         {
             Debug.LogError("没有下一个场景可以加载");
         }
+        
     }
 }

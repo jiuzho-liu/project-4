@@ -474,6 +474,8 @@ MonoBehaviour:
   FlashImage: {fileID: 2196436391302579093}
   InfraredImage: {fileID: 2983261620621402747}
   UV: {fileID: 1404354193435701953}
+  Acetylene: {fileID: 2983261620621402747}
+  LiquidChlorine: {fileID: 1404354193435701953}
   fadeDuration: 3
 --- !u!1 &149584
 GameObject:
