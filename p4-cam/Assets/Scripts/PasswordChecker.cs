@@ -33,7 +33,7 @@ public class PasswordChecker : MonoBehaviour
            
                 CheckUI.SetActive(true);
                 fPEMouseLook.enableMouseLook = false;
-                
+                Debug.Log("stop");
                 fPEFirstPersonController.disableMovement();
                 setCursorVisibility(true);
 
@@ -56,7 +56,7 @@ public class PasswordChecker : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            Debug.Log("角色进入触发器区域");
+            Debug.Log("CheckIn");
             inCheckArea = true;
         }
 
@@ -67,7 +67,7 @@ public class PasswordChecker : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            Debug.Log("角色离开触发器区域");
+            Debug.Log("CheckOut");
             inCheckArea = false;
         }
     }

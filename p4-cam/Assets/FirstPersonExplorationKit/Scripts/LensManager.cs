@@ -22,14 +22,9 @@ public struct Lens
 public class LensManager : MonoBehaviour
 {
     private int index = -1;
-    //public bool GetLens=false;
     public bool GetLens = false;
-    //public bool GetLens2 = false;
-    //public bool GetLens3 = false;
     public bool PickFlash=false;
-    //public GameObject myBag;
-    //public bool isOpen = true;
-    //public GameObject Lens1;
+    public bool PickInfrared =false;
     public enum LensType
     {
         None,
@@ -60,9 +55,7 @@ public class LensManager : MonoBehaviour
             if (len.LensName != null) { 
             
             len.LensName.enabled = false;
-            
-            
-            
+               
             }
 
             len.image.color = Color.gray;
@@ -84,20 +77,13 @@ public class LensManager : MonoBehaviour
             
             LensKeyCheckSwitch();
         }
-        //if (Input.GetKeyDown(KeyCode.B))
-        //{
-        //    isOpen = !isOpen;
-        //    myBag.SetActive(isOpen);
-        //}
-
+   
     }
 
 
     void LensKeyCheckSwitch()
     {
        
-        //int index = -1;
-        //lens[1].isLocked = false;
         for (int i = 0; i < lens.Length; i++)
         {
             
@@ -119,7 +105,15 @@ public class LensManager : MonoBehaviour
         {
             PickFlash=false;
         }
+        if (index == 1)
+        {
+            PickInfrared=true;
 
+        }
+        else
+        {
+            PickInfrared=false;
+        }
         if (index < 0) return;
         SwitchLenTo(index);
     }

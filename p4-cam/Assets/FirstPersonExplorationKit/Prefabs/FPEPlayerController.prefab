@@ -471,9 +471,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75affb15555bc6d479011df32878dc49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FlashImage: {fileID: 0}
-  InfraredImage: {fileID: 0}
-  UV: {fileID: 0}
+  FlashImage: {fileID: 2196436391302579093}
+  InfraredImage: {fileID: 2983261620621402747}
+  UV: {fileID: 1404354193435701953}
   Acetylene: {fileID: 2983261620621402747}
   LiquidChlorine: {fileID: 1404354193435701953}
   L3Code1: {fileID: 5358813120558478240}

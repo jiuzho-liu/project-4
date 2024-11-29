@@ -2612,7 +2612,7 @@ MonoBehaviour:
   mouseHintPickUpHandsFullText: (There's something already in your hand)
   mouseHintPutBackText: Put Back
   mouseHintExamineText: Examine
-  mouseHintDropText: Drop
+  mouseHintDropText: 
   mouseHintZoomText: ' '
   mouseHintActivateText: Activate
   activateTwoHandsHint: (You need both hands free for this)

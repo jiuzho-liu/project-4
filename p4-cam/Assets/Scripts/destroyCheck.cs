@@ -24,22 +24,23 @@ public class destroyCheck : MonoBehaviour
             switch (lensType)
             {
                 case LensType.Lens1:
-                    lensManager.lens[3].isLocked = false;
-                    lensManager.lens[3].image.enabled = true;
-                    lensManager.lens[3].LensName.enabled = true;
+                    screenRecorder.Getlens1 = true;
+                    lensManager.lens[1].isLocked = false;
+                    lensManager.lens[1].image.enabled = true;
+                    lensManager.lens[1].LensName.enabled = true;
                    
                     //lensManager.GetLens1 = true;
                     break;
                 case LensType.Lens2:
-                    lensManager.lens[1].isLocked = false;
-                    lensManager.lens[1].image.enabled = true;
-                    lensManager.lens[1].LensName.enabled = true;
-                    //lensManager.GetLens2 = true;
-                    break;
-                case LensType.Lens3:
                     lensManager.lens[2].isLocked = false;
                     lensManager.lens[2].image.enabled = true;
                     lensManager.lens[2].LensName.enabled = true;
+                    //lensManager.GetLens2 = true;
+                    break;
+                case LensType.Lens3:
+                    lensManager.lens[3].isLocked = false;
+                    lensManager.lens[3].image.enabled = true;
+                    lensManager.lens[3].LensName.enabled = true;
                     //lensManager.GetLens3 = true;
                     break;
                 case LensType.Flash:
